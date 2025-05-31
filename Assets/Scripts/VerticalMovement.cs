@@ -1,13 +1,19 @@
 using UnityEngine;
 
+public enum RacketAxis
+{
+    LeftRacket,
+    RightRacket
+}
+
 public class VerticalMovement : MonoBehaviour
 {
-    void Start()
+    public float movementSpeed = 30;
+    public RacketAxis axis = RacketAxis.LeftRacket;
+
+    private void FixedUpdate()
     {
-        
-    }
-    void Update()
-    {
-        
+        float v = Input.GetAxisRaw(axis.ToString());
+        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, v * movementSpeed);
     }
 }
