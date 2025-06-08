@@ -3,10 +3,15 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     public float speed = 25;
+    private bool hasTheBallMoved = false;
 
-    private void Start()
+    private void Update()
     {
-        GetComponent<Rigidbody2D>().linearVelocity = Vector2.right * speed;
+        if (!hasTheBallMoved && GameManager.sharedInstance.gameStarted)
+        {
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.right * speed;
+            hasTheBallMoved = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

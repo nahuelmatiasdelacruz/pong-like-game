@@ -13,6 +13,7 @@ public class VerticalMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.sharedInstance.gameStarted) return;
         float v = Input.GetAxisRaw(axis.ToString());
         GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, v * movementSpeed);
     }
