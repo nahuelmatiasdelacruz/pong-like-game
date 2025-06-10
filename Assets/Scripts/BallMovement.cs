@@ -4,6 +4,18 @@ public class BallMovement : MonoBehaviour
 {
     public float speed = 25;
     private bool hasTheBallMoved = false;
+    private Color leftRacketColor;
+    private Color rightRacketColor;
+    private SpriteRenderer ballRenderer;
+    private TrailRenderer ballTrailRenderer;
+
+    private void Awake()
+    {
+        leftRacketColor = GameObject.Find("Racket_Left").GetComponent<SpriteRenderer>().color;
+        rightRacketColor = GameObject.Find("Racket_Right").GetComponent<SpriteRenderer>().color;
+        ballRenderer = GetComponent<SpriteRenderer>();
+        ballTrailRenderer = GetComponent<TrailRenderer>();
+    }
 
     private void Update()
     {
@@ -11,6 +23,21 @@ public class BallMovement : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().linearVelocity = Vector2.right * speed;
             hasTheBallMoved = true;
+        }
+        if (GameManager.sharedInstance.gameStarted)
+        {
+            if(GetComponent<Rigidbody2D>().linearVelocity.x > 0)
+            {
+                ballRenderer.color = leftRacketColor;
+                ballTrailRenderer.startColor = leftRacketColor;
+                ballTrailRenderer.endColor = leftRacketColor;
+            }
+            else
+            {
+                ballRenderer.color = rightRacketColor;
+                ballTrailRenderer.startColor = rightRacketColor;
+                ballTrailRenderer.endColor = rightRacketColor;
+            }
         }
     }
 
